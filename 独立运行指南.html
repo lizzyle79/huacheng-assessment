@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>华诚测评系统 - 独立运行指南</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 700px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .section {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        ol, ul {
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #5568d3;
+        }
+        .warning {
+            background: #fff3cd;
+            border: 2px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #856404;
+        }
+        .success {
+            background: #d4edda;
+            border: 2px solid #c3e6cb;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #155724;
+        }
+        code {
+            background: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌟 华诚测评系统 - 运行指南</h1>
+
+        <div class="success">
+            ✅ <strong>好消息：</strong> 您的系统已经完全准备好！
+        </div>
+
+        <div class="section">
+            <h2>🎯 推荐方法：直接运行本地文件</h2>
+            <p><strong>这是最简单、最可靠的方法：</strong></p>
+            <ol>
+                <li>在文件管理器中打开项目文件夹</li>
+                <li>进入 <code>dist</code> 文件夹</li>
+                <li>双击 <code>index.html</code> 文件</li>
+                <li>浏览器会自动打开系统</li>
+            </ol>
+            <button onclick="openFileHint()">💡 我需要更详细的指导</button>
+        </div>
+
+        <div class="section">
+            <h2>🚀 方法2：使用在线版本</h2>
+            <p>如果您想要一个可以分享的网址，可以使用在线版本：</p>
+            <ul>
+                <li><strong>GitHub Pages：</strong> 完全免费，稳定可靠</li>
+                <li><strong>Netlify：</strong> 拖拽部署，简单快速</li>
+                <li><strong>Vercel：</strong> 专业部署，全球加速</li>
+            </ul>
+            <button onclick="alert('请访问云端部署指南.md了解详细步骤')">📖 查看部署指南</button>
+        </div>
+
+        <div class="warning">
+            <h3>⚠️ 关于浏览器兼容性</h3>
+            <p><strong>重要提示：</strong></p>
+            <ul>
+                <li>推荐使用 <strong>Chrome</strong> 或 <strong>Edge</strong> 浏览器</li>
+                <li>避免使用 IE 浏览器（不支持现代Web功能）</li>
+                <li>确保JavaScript已启用</li>
+                <li>如果页面空白，请尝试其他浏览器</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>📋 系统功能清单</h2>
+            <ul>
+                <li>✅ 6个完整测评关卡</li>
+                <li>✅ 实时评分和反馈</li>
+                <li>✅ MBTI性格分析</li>
+                <li>✅ 能力雷达图</li>
+                <li>✅ 个性化发展建议</li>
+                <li>✅ 响应式设计，支持所有设备</li>
+            </ul>
+        </div>
+
+        <div id="hintArea" style="display: none; margin-top: 20px;">
+            <div class="section">
+                <h2>📁 详细操作步骤</h2>
+                <ol>
+                    <li>打开"此电脑"或"文件资源管理器"</li>
+                    <li>导航到项目文件夹：
+                        <br><code>D:\AI\人才测评技术及应用（课程实训）\华诚项目\dist</code>
+                    </li>
+                    <li>找到 <code>index.html</code> 文件</li>
+                    <li>右键点击 → "打开方式" → 选择您的浏览器</li>
+                    <li>或直接双击文件</li>
+                </ol>
+            </div>
+        </div>
+
+        <button onclick="window.close()">🚪 关闭此窗口</button>
+    </div>
+
+    <script>
+        function openFileHint() {
+            const hintArea = document.getElementById('hintArea');
+            hintArea.style.display = hintArea.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // 检测浏览器类型
+        const browserInfo = {
+            chrome: /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor),
+            edge: /Edge/.test(navigator.userAgent),
+            firefox: /Firefox/.test(navigator.userAgent),
+            safari: /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor),
+            ie: /MSIE/.test(navigator.userAgent) || /Trident/.test(navigator.userAgent)
+        };
+
+        // 显示浏览器建议
+        window.onload = function() {
+            if (browserInfo.ie) {
+                alert('检测到您正在使用IE浏览器，这可能导致系统无法正常工作。\n\n建议改用Chrome或Edge浏览器以获得最佳体验。');
+            } else if (browserInfo.chrome || browserInfo.edge) {
+                console.log('✅ 浏览器兼容性良好');
+            }
+        };
+    </script>
+</body>
+</html>

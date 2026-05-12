@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(npm install *)",
+      "Bash(npx tailwindcss *)",
+      "Bash(npx kill-port *)",
+      "Bash(curl -s http://localhost:5174)",
+      "Bash(curl -s http://localhost:5174/src/main.jsx)",
+      "Bash(curl -s http://localhost:4173)",
+      "Bash(python -m http.server 8000)",
+      "Bash(node -e \"console.log\\('Node.js正常工作'\\)\")",
+      "Bash(netstat -ano)",
+      "Bash(findstr \":8080\")",
+      "Bash(findstr \":3000\")",
+      "Bash(python -m http.server 8080)",
+      "Bash(curl -I http://localhost:8080)",
+      "Bash(npx serve *)",
+      "Bash(curl -s http://localhost:8080)",
+      "Bash(python -m http.server 4173)"
+    ]
+  }
+}

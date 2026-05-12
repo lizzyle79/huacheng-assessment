@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MBTI职业性格测试</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .instructions {
+            background-color: #eaf2f8;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 5px solid #3498db;
+        }
+        .instructions h2 {
+            margin-top: 0;
+            color: #2980b9;
+        }
+        .question {
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .question p {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .options {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .option-label {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+        .option-label input {
+            margin-right: 10px;
+            width: 40px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 5px;
+        }
+        .option-text {
+            font-weight: 500;
+        }
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 30px;
+            transition: background-color 0.3s;
+        }
+        .submit-btn:hover {
+            background-color: #2980b9;
+        }
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #e8f5e9;
+            border-radius: 8px;
+            display: none;
+        }
+        .result h2 {
+            color: #27ae60;
+            margin-top: 0;
+        }
+        .type {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 15px 0;
+        }
+        .description {
+            margin-top: 15px;
+            line-height: 1.8;
+        }
+        .jobs {
+            margin-top: 20px;
+        }
+        .jobs h3 {
+            color: #2980b9;
+            margin-top: 0;
+        }
+        .jobs ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+        .progress-bar {
+            height: 5px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .progress {
+            height: 100%;
+            background-color: #3498db;
+            border-radius: 5px;
+            width: 0%;
+            transition: width 0.3s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>MBTI职业性格测试</h1>
+        
+        <div class="instructions">
+            <h2>测试说明</h2>
+            <p>以下每道题目均有两个答案：A和B。请仔细阅读题目，按照与你性格相符的程度分别赋予A和B一个分数，并使每组的两个分数之和为5。如果你觉得在不同的情境里，两个答案或许都能反映你的倾向，那么请按照你的行为方式选择一个对你来说最自然、最顺畅和最从容的答案。</p>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <form id="mbti-form">
+            <!-- 问题 1 -->
+            <div class="question">
+                <p>1. 当你遇到新朋友时，你</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q1" min="0" max="5" required>
+                        <span class="option-text">A. 说话的时间与聆听的时间相当。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q1b" min="0" max="5" required>
+                        <span class="option-text">B. 聆听的时间会比说话的时间多。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 2 -->
+            <div class="question">
+                <p>2. 下列哪一种是你的一般生活取向？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q2" min="0" max="5" required>
+                        <span class="option-text">A. 只管做吧。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q2b" min="0" max="5" required>
+                        <span class="option-text">B. 找出多种不同选择。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 3 -->
+            <div class="question">
+                <p>3. 你喜欢自己的哪种性格？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q3" min="0" max="5" required>
+                        <span class="option-text">A. 冷静而理性。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q3b" min="0" max="5" required>
+                        <span class="option-text">B. 热情而体谅。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 4 -->
+            <div class="question">
+                <p>4. 你擅长</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q4" min="0" max="5" required>
+                        <span class="option-text">A. 在有需要时同时协调进行多项工作。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q4b" min="0" max="5" required>
+                        <span class="option-text">B. 专注在某一项工作上，直至把它完成。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 5 -->
+            <div class="question">
+                <p>5. 你参与社交聚会时</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q5" min="0" max="5" required>
+                        <span class="option-text">A. 总是能认识新朋友。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q5b" min="0" max="5" required>
+                        <span class="option-text">B. 只跟几个亲密挚友待在一起。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 6 -->
+            <div class="question">
+                <p>6. 当你尝试了解某些事情时，一般你会</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q6" min="0" max="5" required>
+                        <span class="option-text">A. 先了解细节。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q6b" min="0" max="5" required>
+                        <span class="option-text">B. 先了解整体情况，细节稍后再谈。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 7 -->
+            <div class="question">
+                <p>7. 你对下列哪方面较感兴趣？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q7" min="0" max="5" required>
+                        <span class="option-text">A. 知道别人的想法。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q7b" min="0" max="5" required>
+                        <span class="option-text">B. 知道别人的感受。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 8 -->
+            <div class="question">
+                <p>8. 你比较喜欢下列哪个工作？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q8" min="0" max="5" required>
+                        <span class="option-text">A. 能让你迅速或及时做出反应的工作。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q8b" min="0" max="5" required>
+                        <span class="option-text">B. 能让你确定目标，然后逐步达成目标的工作。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 9 -->
+            <div class="question">
+                <p>9. 下列哪种说法比较适合你？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q9" min="0" max="5" required>
+                        <span class="option-text">A. 当我与友人尽兴后，我会感到精力充沛，并会继续追求这种欢娱。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q9b" min="0" max="5" required>
+                        <span class="option-text">B. 当我与友人尽兴后，我会感到疲累，觉得需要一些空间。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 10 -->
+            <div class="question">
+                <p>10. 下列哪种说法比较适合你？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q10" min="0" max="5" required>
+                        <span class="option-text">A. 我比较有兴趣知道别人的经历，例如他们做过什么、认识什么人。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q10b" min="0" max="5" required>
+                        <span class="option-text">B. 我比较有兴趣知道别人的计划和梦想，例如他们会往哪里去、憧憬什么。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 11 -->
+            <div class="question">
+                <p>11. 下列哪种说法比较适合你？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q11" min="0" max="5" required>
+                        <span class="option-text">A. 我擅长制订一些可行的计划。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q11b" min="0" max="5" required>
+                        <span class="option-text">B. 我擅长促使别人同意一些计划，并与我通力合作。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 12 -->
+            <div class="question">
+                <p>12. 下列哪种说法比较适合你？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q12" min="0" max="5" required>
+                        <span class="option-text">A. 我会突然尝试做某些事，看看会有什么事情发生。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q12b" min="0" max="5" required>
+                        <span class="option-text">B. 我在尝试做任何事前，都想事先知道可能有什么事情发生。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 13 -->
+            <div class="question">
+                <p>13. 下列哪种说法比较适合你？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q13" min="0" max="5" required>
+                        <span class="option-text">A. 我经常边说话，边思考。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q13b" min="0" max="5" required>
+                        <span class="option-text">B. 我在说话前，通常会思考要说的话。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 14 -->
+            <div class="question">
+                <p>14. 下列哪种说法比较适合你？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q14" min="0" max="5" required>
+                        <span class="option-text">A. 周围的环境对我很重要，而且会影响我的感受。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q14b" min="0" max="5" required>
+                        <span class="option-text">B. 如果我喜欢我所做的事情，气氛对我而言并不是那么重要。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 15 -->
+            <div class="question">
+                <p>15. 下列哪种说法比较适合你？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q15" min="0" max="5" required>
+                        <span class="option-text">A. 我喜欢分析，心思缜密。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q15b" min="0" max="5" required>
+                        <span class="option-text">B. 我对人感兴趣，关心他们身上所发生的事。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 16 -->
+            <div class="question">
+                <p>16. 下列哪种说法比较适合你？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q16" min="0" max="5" required>
+                        <span class="option-text">A. 即使已确定计划，我也喜欢探讨其他新的方案。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q16b" min="0" max="5" required>
+                        <span class="option-text">B. 一旦确定计划，我便希望能依计划行事。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 17 -->
+            <div class="question">
+                <p>17. 下列哪种说法比较适合你？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q17" min="0" max="5" required>
+                        <span class="option-text">A. 认识我的人，一般都知道什么对我来说是重要的。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q17b" min="0" max="5" required>
+                        <span class="option-text">B. 除了我感觉亲近的人以外，我不会告诉别人什么对我来说是重要的。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 18 -->
+            <div class="question">
+                <p>18. 下列哪种说法比较适合你？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q18" min="0" max="5" required>
+                        <span class="option-text">A. 如果我喜欢某种活动，我会经常进行这种活动。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q18b" min="0" max="5" required>
+                        <span class="option-text">B. 我一旦熟悉某种活动后，便希望转而尝试其他新的活动。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 19 -->
+            <div class="question">
+                <p>19. 下列哪种说法比较适合你？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q19" min="0" max="5" required>
+                        <span class="option-text">A. 当我做决定的时候，我更多地考虑正反两方面的观点，并且会推理与论证。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q19b" min="0" max="5" required>
+                        <span class="option-text">B. 当我做决定的时候，我会更多地了解其他人的想法，并希望能够与他们达成共识。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 20 -->
+            <div class="question">
+                <p>20. 下列哪种说法比较适合你？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q20" min="0" max="5" required>
+                        <span class="option-text">A. 当我专注做某件事情时，我需要不时地停下来休息。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q20b" min="0" max="5" required>
+                        <span class="option-text">B. 当我专注做某件事情时，我不希望受到任何干扰。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 21 -->
+            <div class="question">
+                <p>21. 下列哪种说法比较适合你？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q21" min="0" max="5" required>
+                        <span class="option-text">A. 一旦独处太久，我便会感到不安。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q21b" min="0" max="5" required>
+                        <span class="option-text">B. 若没有足够的独处时间，我便会感到烦躁不安。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 22 -->
+            <div class="question">
+                <p>22. 下列哪种说法比较适合你？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q22" min="0" max="5" required>
+                        <span class="option-text">A. 我对一些没有实际用途的意念不感兴趣。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q22b" min="0" max="5" required>
+                        <span class="option-text">B. 我喜欢意念本身，并享受意念产生的过程。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 23 -->
+            <div class="question">
+                <p>23. 下列哪种说法比较适合你？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q23" min="0" max="5" required>
+                        <span class="option-text">A. 当进行谈判时，我依靠自己的知识和技巧。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q23b" min="0" max="5" required>
+                        <span class="option-text">B. 当进行谈判时，我会拉拢其他人至同一阵线。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 24 -->
+            <div class="question">
+                <p>24. 当你放假时，你多数时间会</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q24" min="0" max="5" required>
+                        <span class="option-text">A. 随遇而安，做当时想做的事。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q24b" min="0" max="5" required>
+                        <span class="option-text">B. 为想做的事情制订时间表。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 25 -->
+            <div class="question">
+                <p>25. 当你放假时，你多数时间会</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q25" min="0" max="5" required>
+                        <span class="option-text">A. 花多些时间与别人共处。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q25b" min="0" max="5" required>
+                        <span class="option-text">B. 花多些时间自己阅读、散步或者做白日梦。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 26 -->
+            <div class="question">
+                <p>26. 当你放假时，你多数时间会</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q26" min="0" max="5" required>
+                        <span class="option-text">A. 返回自己喜欢的地方度假。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q26b" min="0" max="5" required>
+                        <span class="option-text">B. 选择前往一些自己从未去过的地方。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 27 -->
+            <div class="question">
+                <p>27. 当你放假时，你多数时间会</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q27" min="0" max="5" required>
+                        <span class="option-text">A. 带着一些与工作或学习有关的事情。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q27b" min="0" max="5" required>
+                        <span class="option-text">B. 处理一些对自己重要的人际关系。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 28 -->
+            <div class="question">
+                <p>28. 当你放假时，你多数时间会</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q28" min="0" max="5" required>
+                        <span class="option-text">A. 忘记平时发生的事情，专心享乐。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q28b" min="0" max="5" required>
+                        <span class="option-text">B. 想着假期过后要准备的事情。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 29 -->
+            <div class="question">
+                <p>29. 当你放假时，你多数时间会</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q29" min="0" max="5" required>
+                        <span class="option-text">A. 参观著名景点。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q29b" min="0" max="5" required>
+                        <span class="option-text">B. 花时间去博物馆和一些较为幽静的地方。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 30 -->
+            <div class="question">
+                <p>30. 当你放假时，你多数时间会</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q30" min="0" max="5" required>
+                        <span class="option-text">A. 在喜欢的餐厅吃饭。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q30b" min="0" max="5" required>
+                        <span class="option-text">B. 尝试新的菜式。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 31 -->
+            <div class="question">
+                <p>31. 下列哪种说法最能贴切形容你对自己的看法？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q31" min="0" max="5" required>
+                        <span class="option-text">A. 别人认为我会公正处事，并且尊重他人。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q31b" min="0" max="5" required>
+                        <span class="option-text">B. 别人相信在他们有需要时，我会在他们身边。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 32 -->
+            <div class="question">
+                <p>32. 下列哪种说法最能贴切形容你对自己的看法？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q32" min="0" max="5" required>
+                        <span class="option-text">A. 随机应变。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q32b" min="0" max="5" required>
+                        <span class="option-text">B. 按照计划行事。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 33 -->
+            <div class="question">
+                <p>33. 下列哪种说法最能贴切形容你对自己的看法？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q33" min="0" max="5" required>
+                        <span class="option-text">A. 坦率。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q33b" min="0" max="5" required>
+                        <span class="option-text">B. 深沉。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 34 -->
+            <div class="question">
+                <p>34. 下列哪种说法最能贴切形容你对自己的看法？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q34" min="0" max="5" required>
+                        <span class="option-text">A. 留意事实。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q34b" min="0" max="5" required>
+                        <span class="option-text">B. 注重事实。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 35 -->
+            <div class="question">
+                <p>35. 下列哪种说法最能贴切形容你对自己的看法？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q35" min="0" max="5" required>
+                        <span class="option-text">A. 知识广博。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q35b" min="0" max="5" required>
+                        <span class="option-text">B. 善解人意。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 36 -->
+            <div class="question">
+                <p>36. 下列哪种说法最能贴切形容你对自己的看法？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q36" min="0" max="5" required>
+                        <span class="option-text">A. 容易适应转变。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q36b" min="0" max="5" required>
+                        <span class="option-text">B. 行事井井有条。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 37 -->
+            <div class="question">
+                <p>37. 下列哪种说法最能贴切形容你对自己的看法？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q37" min="0" max="5" required>
+                        <span class="option-text">A. 爽朗。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q37b" min="0" max="5" required>
+                        <span class="option-text">B. 沉稳。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 38 -->
+            <div class="question">
+                <p>38. 下列哪种说法最能贴切形容你对自己的看法？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q38" min="0" max="5" required>
+                        <span class="option-text">A. 实事求处。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q38b" min="0" max="5" required>
+                        <span class="option-text">B. 富有想象力。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 39 -->
+            <div class="question">
+                <p>39. 下列哪种说法最能贴切形容你对自己的看法？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q39" min="0" max="5" required>
+                        <span class="option-text">A. 喜欢询问实情。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q39b" min="0" max="5" required>
+                        <span class="option-text">B. 喜欢探索感受。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 40 -->
+            <div class="question">
+                <p>40. 下列哪种说法最能贴切形容你对自己的看法？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q40" min="0" max="5" required>
+                        <span class="option-text">A. 不断接受新意见。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q40b" min="0" max="5" required>
+                        <span class="option-text">B. 着眼于达成目标。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 41 -->
+            <div class="question">
+                <p>41. 下列哪种说法最能贴切形容你对自己的看法？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q41" min="0" max="5" required>
+                        <span class="option-text">A. 率直。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q41b" min="0" max="5" required>
+                        <span class="option-text">B. 内敛。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 42 -->
+            <div class="question">
+                <p>42. 下列哪种说法最能贴切形容你对自己的看法？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q42" min="0" max="5" required>
+                        <span class="option-text">A. 实事求是。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q42b" min="0" max="5" required>
+                        <span class="option-text">B. 目光长远。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 43 -->
+            <div class="question">
+                <p>43. 下列哪种说法最能贴切形容你对自己的看法？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q43" min="0" max="5" required>
+                        <span class="option-text">A. 公正。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q43b" min="0" max="5" required>
+                        <span class="option-text">B. 宽容。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 44 -->
+            <div class="question">
+                <p>44. 你会倾向</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q44" min="0" max="5" required>
+                        <span class="option-text">A. 暂时放下不愉快的事情，直至心情变好时才处理。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q44b" min="0" max="5" required>
+                        <span class="option-text">B. 及时处理不愉快的事情，务求把它们抛诸脑后。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 45 -->
+            <div class="question">
+                <p>45. 你会倾向</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q45" min="0" max="5" required>
+                        <span class="option-text">A. 自己的工作被欣赏，即使自己并不满意。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q45b" min="0" max="5" required>
+                        <span class="option-text">B. 创造一些有价值的东西，但不一定需要别人知道是你做的。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 46 -->
+            <div class="question">
+                <p>46. 你会倾向</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q46" min="0" max="5" required>
+                        <span class="option-text">A. 在自己感兴趣的范围内，积累丰富的经验。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q46b" min="0" max="5" required>
+                        <span class="option-text">B. 有各式各样的经验。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 47 -->
+            <div class="question">
+                <p>47. 哪一种说法比较能表达你的看法？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q47" min="0" max="5" required>
+                        <span class="option-text">A. 感情用事的人较容易犯错。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q47b" min="0" max="5" required>
+                        <span class="option-text">B. 逻辑思维会令人自以为是，因而容易犯错。</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 问题 48 -->
+            <div class="question">
+                <p>48. 哪一种说法比较能表达你的看法？</p>
+                <div class="options">
+                    <div class="option-label">
+                        <input type="number" name="q48" min="0" max="5" required>
+                        <span class="option-text">A. 犹豫不决必失败。</span>
+                    </div>
+                    <div class="option-label">
+                        <input type="number" name="q48b" min="0" max="5" required>
+                        <span class="option-text">B. 三思而后行。</span>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">提交测试</button>
+        </form>
+
+        <div class="result" id="result">
+            <h2>你的MBTI性格类型是：</h2>
+            <div class="type" id="mbti-type"></div>
+            <div class="description" id="mbti-description"></div>
+            <div class="jobs" id="mbti-jobs">
+                <h3>适合的工作：</h3>
+                <ul id="jobs-list"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('mbti-form');
+            const resultDiv = document.getElementById('result');
+            const mbtiTypeDiv = document.getElementById('mbti-type');
+            const mbtiDescriptionDiv = document.getElementById('mbti-description');
+            const jobsList = document.getElementById('jobs-list');
+            const progressBar = document.getElementById('progress');
+
+            // 16种人格类型的详细信息和适合工作
+            const personalityData = {
+                'INTJ': {
+                    description: '完美主义者，具有极强的逻辑性和战略眼光。喜欢独立思考，擅长规划长远目标，效率高但可能显得冷漠或固执。',
+                    jobs: ['战略规划师', '投资银行家', '科学家', '软件工程师', '数据分析师', '外科医生', '律师']
+                },
+                'INTP': {
+                    description: '热爱理论、模型和系统。好奇心强，喜欢解决复杂问题，思维跳跃，擅长创新，但可能不擅长处理细节琐事和人际交际。',
+                    jobs: ['物理学家', '经济学家', '程序员', '游戏设计师', '大学教授', '金融分析师', '数学家']
+                },
+                'ENTJ': {
+                    description: '天生的领导者，自信、果断、有魄力。擅长统筹全局，追求效率和结果，理性客观，但有时可能显得过于强势或缺乏耐心。',
+                    jobs: ['企业高管', '创业者', '管理咨询顾问', '法官', '项目经理', '政客']
+                },
+                'ENTP': {
+                    description: '思维敏捷，喜欢挑战传统和辩论。富有创造力，能迅速看到问题的本质，讨厌枯燥重复的工作，喜欢追求新鲜感。',
+                    jobs: ['创业者', '风险投资人', '市场营销总监', '律师', '记者', '编剧', '新产品开发员']
+                },
+                'INFJ': {
+                    description: '理想主义者，富有洞察力和同理心。追求有意义的人际关系，原则性强，喜欢帮助他人成长，是MBTI中最稀有的类型之一。',
+                    jobs: ['心理咨询师', '人力资源专家', '作家', '非营利组织工作者', '教师', '设计师']
+                },
+                'INFP': {
+                    description: '敏感细腻，内心世界丰富，追求真善美。具有极强的创造力和价值观导向，不喜欢冲突，适合在安静的环境中发挥想象力。',
+                    jobs: ['作家', '艺术家', '心理学家', '翻译家', '社会工作者', '图书管理员', '职业规划师']
+                },
+                'ENFJ': {
+                    description: '极具感染力和人格魅力，是天生的教育者和演说家。擅长激励他人，富有责任心，关注他人感受，但容易忽略自己。',
+                    jobs: ['教师（尤其高等教育）', '培训师', '销售经理', '公关经理', '政治家', '演员']
+                },
+                'ENFP': {
+                    description: '热情洋溢、充满活力，拥有极强的创造力和幽默感。喜欢探索可能性，善于社交，但有时容易三分钟热度，缺乏执行力。',
+                    jobs: ['记者', '旅游博主', '演员', '创意总监', '公关', '心理咨询师', '品牌策划']
+                },
+                'ISTJ': {
+                    description: '务实、可靠、有条理。重视规则和承诺，工作一丝不苟，是社会的“基石”。虽然内向，但在维护秩序方面非常坚定。',
+                    jobs: ['会计师', '审计师', '警官', '法官', '公务员', '数据库管理员', '军官']
+                },
+                'ISFJ': {
+                    description: '温暖、体贴、忠诚。非常关注他人的需求，默默付出，记忆力好，喜欢井井有条的环境，不喜欢改变和冲突。',
+                    jobs: ['护士', '行政助理', '教师（幼教/小教）', '社工', '营养师', '室内设计师']
+                },
+                'ESTJ': {
+                    description: '极强的执行力和管理能力，注重秩序、传统和效率。喜欢组织人员和资源来完成任务，务实且直率。',
+                    jobs: ['公司经理', '银行职员', '警官', '法官', '学校管理人员', '财务总监']
+                },
+                'ESFJ': {
+                    description: '热心肠、社交能力强、关心他人。喜欢和谐的氛围，渴望被感激，擅长组织和协调人际关系，非常顾家。',
+                    jobs: ['公关专员', '护士', '活动策划', '销售代表', '人力资源经理', '空乘人员']
+                },
+                'ISTP': {
+                    description: '冷静理智，动手能力强。喜欢探索事物的原理，擅长使用工具，适应能力强，喜欢行动而非空谈，通常比较独立。',
+                    jobs: ['机械工程师', '飞行员', '赛车手', '程序员', '法医', '消防员', '外科医生']
+                },
+                'ISFP': {
+                    description: '温和敏感，拥有独特的审美和艺术天赋。活在当下，享受生活，不喜欢强制和约束，行事低调。',
+                    jobs: ['艺术家', '音乐家', '摄影师', '厨师', '服装设计师', '按摩师', '兽医']
+                },
+                'ESTP': {
+                    description: '精明、活跃、喜欢冒险。反应极快，擅长临场发挥，不喜欢理论，更看重实际行动和即时结果，是天生的谈判家。',
+                    jobs: ['销售经理', '企业家', '股票经纪人', '体育教练', '急救医护人员', '侦探']
+                },
+                'ESFP': {
+                    description: '热情奔放、乐观大方，是天生的聚光灯焦点。喜欢娱乐他人，适应力强，讨厌枯燥的理论，注重当下的快乐。',
+                    jobs: ['演员', '主持人', '活动策划', '导游', '幼儿教师', '销售', '公关']
+                }
+            };
+
+            // 为每个问题的输入框添加联动输入功能
+            for (let i = 1; i <= 48; i++) {
+                const aInput = document.querySelector(`input[name="q${i}"]`);
+                const bInput = document.querySelector(`input[name="q${i}b"]`);
+
+                aInput.addEventListener('input', function() {
+                    const aVal = parseInt(this.value) || 0;
+                    // 确保A的值在0-5之间
+                    const validA = Math.max(0, Math.min(5, aVal));
+                    this.value = validA;
+                    // 计算并设置B的值
+                    const bVal = 5 - validA;
+                    bInput.value = bVal;
+                    updateProgress();
+                });
+
+                bInput.addEventListener('input', function() {
+                    const bVal = parseInt(this.value) || 0;
+                    // 确保B的值在0-5之间
+                    const validB = Math.max(0, Math.min(5, bVal));
+                    this.value = validB;
+                    // 计算并设置A的值
+                    const aVal = 5 - validB;
+                    aInput.value = aVal;
+                    updateProgress();
+                });
+            }
+
+            function updateProgress() {
+                let filledCount = 0;
+                for (let i = 1; i <= 48; i++) {
+                    const aVal = document.querySelector(`input[name="q${i}"]`).value;
+                    const bVal = document.querySelector(`input[name="q${i}b"]`).value;
+                    if (aVal && bVal) {
+                        filledCount++;
+                    }
+                }
+                const progressPercent = (filledCount / 48) * 100;
+                progressBar.style.width = `${progressPercent}%`;
+            }
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // 计算得分
+                let E = 0, I = 0, S = 0, N = 0, T = 0, F = 0, J = 0, P = 0;
+
+                // E/I
+                [1, 5, 9, 13, 17, 21, 25, 29, 33, 37, 41, 45].forEach(num => {
+                    E += parseInt(document.querySelector(`input[name="q${num}"]`).value) || 0;
+                    I += parseInt(document.querySelector(`input[name="q${num}b"]`).value) || 0;
+                });
+
+                // S/N
+                [2, 6, 10, 14, 18, 22, 26, 30, 34, 38, 42, 46].forEach(num => {
+                    S += parseInt(document.querySelector(`input[name="q${num}"]`).value) || 0;
+                    N += parseInt(document.querySelector(`input[name="q${num}b"]`).value) || 0;
+                });
+
+                // T/F
+                [3, 7, 11, 15, 19, 23, 27, 31, 35, 39, 43, 47].forEach(num => {
+                    T += parseInt(document.querySelector(`input[name="q${num}"]`).value) || 0;
+                    F += parseInt(document.querySelector(`input[name="q${num}b"]`).value) || 0;
+                });
+
+                // J/P
+                [4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48].forEach(num => {
+                    J += parseInt(document.querySelector(`input[name="q${num}"]`).value) || 0;
+                    P += parseInt(document.querySelector(`input[name="q${num}b"]`).value) || 0;
+                });
+
+                // 确定最终类型 (修改了计分逻辑，优先选择后者)
+                const type = 
+                    (E > I ? 'E' : 'I') +
+                    (S > N ? 'S' : 'N') +
+                    (T > F ? 'T' : 'F') +
+                    (J > P ? 'J' : 'P');
+
+                // 显示结果
+                mbtiTypeDiv.textContent = type;
+                
+                // 获取并显示人格描述和适合的工作
+                const data = personalityData[type];
+                if (data) {
+                    mbtiDescriptionDiv.textContent = data.description;
+                    jobsList.innerHTML = ''; // 清空列表
+                    data.jobs.forEach(job => {
+                        const li = document.createElement('li');
+                        li.textContent = job;
+                        jobsList.appendChild(li);
+                    });
+                } else {
+                    mbtiDescriptionDiv.textContent = '您的性格类型是：' + type + '。这是一个独特的性格组合。';
+                    jobsList.innerHTML = '';
+                }
+
+                resultDiv.style.display = 'block';
+                form.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+@import 'tailwindcss';
+
+:root {
+  --primary-dark: #003366;
+  --primary-medium: #004d99;
+  --primary-light: #0066cc;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+}
