@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .container {
+            background: white;
+            color: #333;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        h1 { color: #667eea; }
+        .success { background: #d4edda; color: #155724; padding: 15px; border-radius: 5px; margin: 10px 0; }
+        .error { background: #f8d7da; color: #721c24; padding: 15px; border-radius: 5px; margin: 10px 0; }
+        button { background: #667eea; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin: 5px; }
+        button:hover { background: #5568d3; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 诊断页面</h1>
+
+        <div class="success">
+            ✅ <strong>恭喜！基本页面可以正常显示！</strong>
+        </div>
+
+        <h2>📋 测试结果：</h2>
+        <ul>
+            <li>✅ HTML正常工作</li>
+            <li>✅ CSS正常工作</li>
+            <li>✅ 服务器正常运行</li>
+        </ul>
+
+        <h2>🎯 问题分析：</h2>
+        <p>如果基本页面能显示，但主应用（index.html）是空白的，可能是：</p>
+        <ol>
+            <li>浏览器JavaScript被禁用</li>
+            <li>React应用有运行时错误</li>
+            <li>某个模块加载失败</li>
+        </ol>
+
+        <h2>🛠️ 解决方案：</h2>
+
+        <button onclick="testJavaScript()">测试JavaScript</button>
+        <button onclick="openConsole()">打开浏览器控制台</button>
+        <button onclick="goToMain()">返回主应用</button>
+
+        <div id="testResult" style="margin-top: 20px;"></div>
+
+        <div style="background: #fff3cd; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <h3>💡 请按F12打开浏览器开发者工具：</h3>
+            <ol>
+                <li>按 <strong>F12</strong> 键打开开发者工具</li>
+                <li>点击 <strong>"Console"</strong> 标签</li>
+                <li>查看是否有红色错误信息</li>
+                <li>把错误信息告诉我</li>
+            </ol>
+        </div>
+
+        <div style="background: #d1ecf1; padding: 15px; border-radius: 5px; margin: 20px 0;">
+            <h3>🎯 或者直接访问主页：</h3>
+            <a href="/index.html" style="color: #667eea; font-weight: bold;">点击这里返回主应用</a>
+        </div>
+    </div>
+
+    <script>
+        function testJavaScript() {
+            const resultDiv = document.getElementById('testResult');
+            resultDiv.innerHTML = '<div class="success">✅ JavaScript正常工作！您的浏览器支持JavaScript。</div>';
+        }
+
+        function openConsole() {
+            alert('请按F12键打开浏览器开发者工具，然后点击"Console"标签查看错误信息。');
+        }
+
+        function goToMain() {
+            window.location.href = '/index.html';
+        }
+
+        // 自动测试
+        setTimeout(() => {
+            testJavaScript();
+        }, 1000);
+    </script>
+</body>
+</html>
